@@ -20,6 +20,9 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Install dependencies
+        run: pip install requests
+
       - name: Fetch chess data
         run: python3 .github/scripts/fetch_chess_data.py
 
