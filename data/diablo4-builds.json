@@ -2,169 +2,59 @@
   "last_updated": "2026-02-14T00:00:00Z",
   "builds": [
     {
-      "name": "Whirlwind Barbarian",
-      "class": "Barbarian",
-      "difficulty": "Starter",
-      "description": "Classic beginner-friendly build centered around Whirlwind for AOE damage and survivability",
+      "name": "Auradin",
+      "class": "Paladin",
+      "difficulty": "Endgame",
+      "description": "Top-tier Paladin build utilizing Aura synergies for maximum damage and survivability",
+      "focus": "Holy Damage",
+      "main_skill": "Aura",
+      "cost": "High",
+      "rating": 10,
+      "tags": ["S Tier", "Endgame", "Top Pick"]
+    },
+    {
+      "name": "Wing Strikes",
+      "class": "Paladin",
+      "difficulty": "Endgame",
+      "description": "Elite Paladin variant focusing on wing strike mechanics for consistent high damage",
+      "focus": "Holy Damage",
+      "main_skill": "Wing Strikes",
+      "cost": "High",
+      "rating": 10,
+      "tags": ["S Tier", "Endgame", "Top Pick"]
+    },
+    {
+      "name": "Judgement",
+      "class": "Paladin",
+      "difficulty": "Endgame",
+      "description": "Powerful Paladin build centered around Judgement skill with optimal scaling",
+      "focus": "Holy Damage",
+      "main_skill": "Judgement",
+      "cost": "High",
+      "rating": 10,
+      "tags": ["S Tier", "Endgame", "Top Pick"]
+    },
+    {
+      "name": "Evade",
+      "class": "Spiritborn",
+      "difficulty": "Endgame",
+      "description": "Spiritborn build maximizing evasion and mobility for endgame content",
       "focus": "Physical Damage",
-      "main_skill": "Whirlwind",
-      "cost": "Low",
-      "rating": 7,
-      "tags": ["AOE", "Melee", "Tanky"]
-    },
-    {
-      "name": "Bleed Barbarian",
-      "class": "Barbarian",
-      "difficulty": "Intermediate",
-      "description": "Uses bleed effects to scale damage over time with critical hits and synergies",
-      "focus": "Bleed Damage",
-      "main_skill": "Rend",
-      "cost": "Medium",
-      "rating": 8,
-      "tags": ["Bleed", "DOT", "Scaling"]
-    },
-    {
-      "name": "Earthquake Barbarian",
-      "class": "Barbarian",
-      "difficulty": "Endgame",
-      "description": "High damage endgame build leveraging earthquake synergies with optimal gear rolls",
-      "focus": "Earth Damage",
-      "main_skill": "Earthquake",
+      "main_skill": "Evade",
       "cost": "High",
-      "rating": 9,
-      "tags": ["Endgame", "High DPS", "Gear Dependent"]
+      "rating": 10,
+      "tags": ["S Tier", "Endgame", "Top Pick"]
     },
     {
-      "name": "Bone Prison Necromancer",
-      "class": "Necromancer",
-      "difficulty": "Starter",
-      "description": "Starter necromancer build using skeletal army for damage while you control",
-      "focus": "Summoning",
-      "main_skill": "Skeletal Mages",
-      "cost": "Low",
-      "rating": 7,
-      "tags": ["Summoner", "Minions", "Control"]
-    },
-    {
-      "name": "Blood Surge Necromancer",
-      "class": "Necromancer",
-      "difficulty": "Intermediate",
-      "description": "Mid-game build focusing on blood skills and corpse explosions for massive AOE",
-      "focus": "Blood Damage",
-      "main_skill": "Blood Surge",
-      "cost": "Medium",
-      "rating": 8,
-      "tags": ["Blood", "Corpse", "AOE"]
-    },
-    {
-      "name": "Bone Spear Necromancer",
-      "class": "Necromancer",
-      "difficulty": "Endgame",
-      "description": "Endgame powerhouse with optimal crit scaling and attack speed synergies",
-      "focus": "Physical Damage",
-      "main_skill": "Bone Spear",
-      "cost": "High",
-      "rating": 9,
-      "tags": ["Endgame", "Crit", "Scaling"]
-    },
-    {
-      "name": "Frost Orb Sorcerer",
-      "class": "Sorcerer",
-      "difficulty": "Starter",
-      "description": "Easy to understand sorcerer build with Frost Orb for crowd control and damage",
-      "focus": "Cold Damage",
-      "main_skill": "Frost Orb",
-      "cost": "Low",
-      "rating": 7,
-      "tags": ["Crowd Control", "Elemental", "Safe"]
-    },
-    {
-      "name": "Chain Lightning Sorcerer",
-      "class": "Sorcerer",
-      "difficulty": "Intermediate",
-      "description": "Mid-game elemental build with chain lightning for AOE and mana efficiency",
-      "focus": "Lightning Damage",
-      "main_skill": "Chain Lightning",
-      "cost": "Medium",
-      "rating": 8,
-      "tags": ["Lightning", "AOE", "Mana"]
-    },
-    {
-      "name": "Inferno Sorcerer",
-      "class": "Sorcerer",
-      "difficulty": "Endgame",
-      "description": "High-damage endgame build utilizing inferno and pyromancy synergies perfectly",
-      "focus": "Fire Damage",
-      "main_skill": "Inferno",
-      "cost": "High",
-      "rating": 9,
-      "tags": ["Endgame", "Fire", "Burst"]
-    },
-    {
-      "name": "Poison Druid",
-      "class": "Druid",
-      "difficulty": "Starter",
-      "description": "Beginner-friendly druid using poison skills and animal companions for damage",
-      "focus": "Poison Damage",
-      "main_skill": "Poisonvine Creeper",
-      "cost": "Low",
-      "rating": 7,
-      "tags": ["Poison", "DOT", "Versatile"]
-    },
-    {
-      "name": "Werewolf Druid",
-      "class": "Druid",
-      "difficulty": "Intermediate",
-      "description": "Shapeshifting build with werewolf form providing high mobility and damage",
-      "focus": "Physical Damage",
-      "main_skill": "Maul",
-      "cost": "Medium",
-      "rating": 8,
-      "tags": ["Shapeshifting", "Melee", "Mobility"]
-    },
-    {
-      "name": "Cataclysm Druid",
-      "class": "Druid",
-      "difficulty": "Endgame",
-      "description": "Endgame druid maximizing elemental damage with optimal synergies and gear",
-      "focus": "Cold Damage",
-      "main_skill": "Cataclysm",
-      "cost": "High",
-      "rating": 9,
-      "tags": ["Endgame", "Elemental", "Scaling"]
-    },
-    {
-      "name": "Shadow Clone Rogue",
-      "class": "Rogue",
-      "difficulty": "Starter",
-      "description": "Beginner rogue using shadow imbuement and clones for damage multiplication",
-      "focus": "Shadow Damage",
-      "main_skill": "Shadow Clone",
-      "cost": "Low",
-      "rating": 7,
-      "tags": ["Shadow", "Clones", "Fun"]
-    },
-    {
-      "name": "Cold Piercing Rogue",
-      "class": "Rogue",
-      "difficulty": "Intermediate",
-      "description": "Mid-game rogue combining cold imbuement with piercing projectiles for AOE",
-      "focus": "Cold Damage",
-      "main_skill": "Barrage",
-      "cost": "Medium",
-      "rating": 8,
-      "tags": ["Cold", "Projectile", "AOE"]
-    },
-    {
-      "name": "Crit Assassin Rogue",
+      "name": "Death Trap",
       "class": "Rogue",
       "difficulty": "Endgame",
-      "description": "Ultimate endgame rogue with maximized crit scaling and precision damage",
+      "description": "Devastating Rogue trap build with massive damage output for endgame farming",
       "focus": "Physical Damage",
-      "main_skill": "Puncture",
+      "main_skill": "Death Trap",
       "cost": "High",
-      "rating": 9,
-      "tags": ["Endgame", "Crit", "Assassin"]
+      "rating": 10,
+      "tags": ["S Tier", "Endgame", "Top Pick"]
     }
   ]
 }
