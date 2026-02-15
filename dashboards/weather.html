@@ -301,19 +301,30 @@
             showLoading(true);
 
             try {
-                // Get coordinates from zip code using Open-Meteo Geocoding API
+                // Get coordinates from zip code using zippopotam.us API
                 const geoResponse = await fetch(
-                    `https://geocoding-api.open-meteo.com/v1/search?query=${zip}&country=US&count=1&language=en&format=json`
+                    `https://api.zippopotam.us/us/${zip}`
                 );
                 const geoData = await geoResponse.json();
 
-                if (!geoData.results || geoData.results.length === 0) {
+                if (geoData.error) {
                     showError('Zip code not found');
                     showLoading(false);
                     return;
                 }
 
-                const { latitude, longitude, name, admin1 } = geoData.results[0];
+                const { places } = geoData;
+                if (!places || places.length === 0) {
+                    showError('Zip code not found');
+                    showLoading(false);
+                    return;
+                }
+
+                const place = places[0];
+                const latitude = parseFloat(place.latitude);
+                const longitude = parseFloat(place.longitude);
+                const name = place['place name'];
+                const admin1 = place['state abbreviation'];
 
                 // Get weather data from Open-Meteo Weather API
                 const weatherResponse = await fetch(
