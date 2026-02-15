@@ -8,7 +8,7 @@ Multi-dashboard site hosted on GitHub Pages. Features:
 - Dashboard hub with card navigation
 
 ## Tracking & Status
-Check the README.md for project status and feature progress. Update the status table as work completes.
+**Important**: Keep README.md status table in sync with completed work. Update the table every time a feature or dashboard is added/completed. This is the source of truth for project progress.
 
 ## Key Files & Structure
 ```
