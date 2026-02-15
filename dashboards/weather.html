@@ -280,6 +280,12 @@
     <script>
         const zipInput = document.getElementById('zipInput');
 
+        zipInput.addEventListener('keyup', () => {
+            if (zipInput.value.length === 5) {
+                fetchWeather();
+            }
+        });
+
         zipInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') fetchWeather();
         });
