@@ -44,16 +44,10 @@ Check the README.md for project status and feature progress. Update the status t
 
 Why: WebFetch is ~2x faster than WebSearch, returns exact data, no API limitations
 
+**Frequency:** Update after major patches or seasons
+
 ### Chess Champions
-**Best method: Manual curation** (Chess.com API currently unavailable)
-1. Periodically check chess.com/leaderboards or major tournament results
-2. Manually select top 5 current champions
-3. Update `data/chess-champions.json` with fields: name, title, country, blitz_rating, rapid_rating, bullet_rating, max_rating, is_world_champion
-4. Commit with update date
-
-Why: API is broken, WebSearch returns tournament candidates not current rankings. Manual approach gives you editorial control anyway.
-
-**Frequency:** Update D4 builds after patches/seasons, update chess after major tournaments or title changes
+Chess data auto-updates daily via GitHub Actions workflow (`update-chess-data.yml`). No manual updates needed.
 
 ## Color Theme
 - Background: `#0a0e27` (dark navy)
