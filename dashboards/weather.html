@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: #0a0e27;
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #e0e0e0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-bottom: 30px;
+            padding: 8px 16px;
+            background: transparent;
+            color: #00d084;
+            text-decoration: none;
+            border: 1px solid #00d08433;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            border-color: #00d084;
+            box-shadow: 0 0 10px rgba(0, 208, 132, 0.2);
+        }
+
+        .search-box {
+            background: #1a1f3a;
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid #00d08433;
+            margin-bottom: 25px;
+        }
+
+        .search-input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            background: #0f1329;
+            border: 1px solid #00d08433;
+            color: #e0e0e0;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #00d084;
+            box-shadow: 0 0 10px rgba(0, 208, 132, 0.2);
+        }
+
+        button {
+            background: #00d084;
+            color: #0a0e27;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background: #00e895;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .weather-display {
+            background: #1a1f3a;
+            border-radius: 12px;
+            padding: 30px;
+            border: 1px solid #00d08433;
+            display: none;
+        }
+
+        .weather-display.show {
+            display: block;
+        }
+
+        .location-name {
+            font-size: 24px;
+            font-weight: 600;
+            color: #00d084;
+            margin-bottom: 20px;
+        }
+
+        .temp-section {
+            display: flex;
+            align-items: baseline;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .current-temp {
+            font-size: 64px;
+            font-weight: 700;
+            color: #e0e0e0;
+        }
+
+        .temp-unit {
+            font-size: 32px;
+            color: #888;
+        }
+
+        .condition {
+            font-size: 18px;
+            color: #b0b0b0;
+            margin-bottom: 25px;
+        }
+
+        .weather-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .weather-item {
+            background: #0f1329;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #00d08415;
+        }
+
+        .weather-label {
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .weather-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: #00d084;
+        }
+
+        .forecast-section {
+            margin-top: 30px;
+            border-top: 1px solid #00d08433;
+            padding-top: 20px;
+        }
+
+        .forecast-title {
+            font-size: 14px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
+        }
+
+        .forecast-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+
+        .forecast-day {
+            background: #0f1329;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #00d08415;
+            text-align: center;
+        }
+
+        .forecast-day-name {
+            font-size: 11px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .forecast-temp {
+            font-size: 16px;
+            font-weight: 600;
+            color: #00d084;
+        }
+
+        .error {
+            background: #5a2d2d;
+            border: 1px solid #d87a7a;
+            color: #ffb3b3;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+            margin-top: 15px;
+        }
+
+        .error.show {
+            display: block;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            color: #888;
+            margin-top: 15px;
+        }
+
+        .loading.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../" class="back-button">← Back to Dashboards</a>
+
+        <div class="search-box">
+            <div class="search-input-group">
+                <input type="text" id="zipInput" placeholder="Enter zip code" maxlength="10">
+                <button onclick="fetchWeather()">Search</button>
+            </div>
+            <div id="error" class="error"></div>
+            <div id="loading" class="loading">Loading weather...</div>
+        </div>
+
+        <div id="weatherDisplay" class="weather-display">
+            <div class="location-name" id="locationName"></div>
+            <div class="temp-section">
+                <span class="current-temp" id="currentTemp"></span>
+                <span class="temp-unit">°F</span>
+            </div>
+            <div class="condition" id="condition"></div>
+
+            <div class="weather-grid">
+                <div class="weather-item">
+                    <div class="weather-label">Feels Like</div>
+                    <div class="weather-value" id="feelsLike"></div>
+                </div>
+                <div class="weather-item">
+                    <div class="weather-label">Humidity</div>
+                    <div class="weather-value" id="humidity"></div>
+                </div>
+                <div class="weather-item">
+                    <div class="weather-label">Wind</div>
+                    <div class="weather-value" id="wind"></div>
+                </div>
+                <div class="weather-item">
+                    <div class="weather-label">Dew Point</div>
+                    <div class="weather-value" id="dewPoint"></div>
+                </div>
+            </div>
+
+            <div class="forecast-section">
+                <div class="forecast-title">5-Day Forecast</div>
+                <div class="forecast-grid" id="forecastGrid"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const zipInput = document.getElementById('zipInput');
+
+        zipInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') fetchWeather();
+        });
+
+        async function fetchWeather() {
+            const zip = zipInput.value.trim();
+            if (!zip) {
+                showError('Enter a zip code');
+                return;
+            }
+
+            clearError();
+            showLoading(true);
+
+            try {
+                // Get coordinates from zip code using Open-Meteo Geocoding API
+                const geoResponse = await fetch(
+                    `https://geocoding-api.open-meteo.com/v1/search?query=${zip}&country=US&count=1&language=en&format=json`
+                );
+                const geoData = await geoResponse.json();
+
+                if (!geoData.results || geoData.results.length === 0) {
+                    showError('Zip code not found');
+                    showLoading(false);
+                    return;
+                }
+
+                const { latitude, longitude, name, admin1 } = geoData.results[0];
+
+                // Get weather data from Open-Meteo Weather API
+                const weatherResponse = await fetch(
+                    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,dew_point_2m&daily=temperature_2m_max,temperature_2m_min,weather_code&timezone=auto`
+                );
+                const weatherData = await weatherResponse.json();
+
+                displayWeather(weatherData, name, admin1);
+                showLoading(false);
+            } catch (error) {
+                showError('Failed to fetch weather data');
+                showLoading(false);
+            }
+        }
+
+        function displayWeather(data, name, state) {
+            const current = data.current;
+            const daily = data.daily;
+
+            document.getElementById('locationName').textContent = `${name}, ${state}`;
+            document.getElementById('currentTemp').textContent = Math.round(current.temperature_2m);
+            document.getElementById('condition').textContent = getWeatherDescription(current.weather_code);
+            document.getElementById('feelsLike').textContent = Math.round(current.apparent_temperature) + '°';
+            document.getElementById('humidity').textContent = current.relative_humidity_2m + '%';
+            document.getElementById('wind').textContent = Math.round(current.wind_speed_10m) + ' mph';
+            document.getElementById('dewPoint').textContent = Math.round(current.dew_point_2m) + '°';
+
+            // Build 5-day forecast
+            const forecastGrid = document.getElementById('forecastGrid');
+            forecastGrid.innerHTML = '';
+
+            for (let i = 1; i < 6; i++) {
+                const date = new Date(daily.time[i]);
+                const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
+                const maxTemp = Math.round(daily.temperature_2m_max[i]);
+                const minTemp = Math.round(daily.temperature_2m_min[i]);
+
+                const forecastDay = document.createElement('div');
+                forecastDay.className = 'forecast-day';
+                forecastDay.innerHTML = `
+                    <div class="forecast-day-name">${dayName}</div>
+                    <div class="forecast-temp">${maxTemp}°</div>
+                    <div style="font-size: 11px; color: #666; margin-top: 4px;">${minTemp}°</div>
+                `;
+                forecastGrid.appendChild(forecastDay);
+            }
+
+            document.getElementById('weatherDisplay').classList.add('show');
+        }
+
+        function getWeatherDescription(code) {
+            const descriptions = {
+                0: 'Clear',
+                1: 'Mostly Clear',
+                2: 'Partly Cloudy',
+                3: 'Overcast',
+                45: 'Foggy',
+                48: 'Foggy',
+                51: 'Light Drizzle',
+                53: 'Drizzle',
+                55: 'Heavy Drizzle',
+                61: 'Light Rain',
+                63: 'Rain',
+                65: 'Heavy Rain',
+                71: 'Light Snow',
+                73: 'Snow',
+                75: 'Heavy Snow',
+                77: 'Snow Grains',
+                80: 'Light Showers',
+                81: 'Showers',
+                82: 'Heavy Showers',
+                85: 'Light Snow Showers',
+                86: 'Snow Showers',
+                95: 'Thunderstorm',
+                96: 'Thunderstorm with Hail',
+                99: 'Thunderstorm with Hail'
+            };
+            return descriptions[code] || 'Unknown';
+        }
+
+        function showError(msg) {
+            const error = document.getElementById('error');
+            error.textContent = msg;
+            error.classList.add('show');
+        }
+
+        function clearError() {
+            document.getElementById('error').classList.remove('show');
+        }
+
+        function showLoading(show) {
+            document.getElementById('loading').classList.toggle('show', show);
+        }
+
+        // Load saved zip on page load
+        window.addEventListener('load', () => {
+            const saved = localStorage.getItem('lastZip');
+            if (saved) {
+                zipInput.value = saved;
+                fetchWeather();
+            }
+        });
+
+        // Save zip on successful fetch
+        const originalFetch = fetchWeather;
+        window.fetchWeather = function() {
+            originalFetch.call(this);
+            localStorage.setItem('lastZip', zipInput.value);
+        };
+    </script>
+</body>
+</html>
