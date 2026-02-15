@@ -23,6 +23,9 @@ jobs:
       - name: Fetch chess data
         run: python3 .github/scripts/fetch_chess_data.py
 
+      - name: Validate data and HTML
+        run: python3 .github/scripts/validate.py
+
       - name: Check if data changed
         id: check-changes
         run: |
