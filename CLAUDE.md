@@ -33,18 +33,27 @@ Check the README.md for project status and feature progress. Update the status t
 3. If data needed: create JSON file in `data/`, add to README status
 
 ## Updating Build Data Quickly
-For dashboards with manual data (like Diablo 4 builds):
-1. **Fetch data**: Use WebFetch tool to grab tier lists or data from source (e.g., maxroll.gg)
-2. **Identify top entries**: Extract top N builds/entries from the fetched data
-3. **Update JSON**: Write new data to `data/[dashboard]-builds.json` with key fields (name, class, difficulty, description, etc.)
-4. **Update filters**: Add any new classes/categories to the select dropdowns in the dashboard HTML if needed
-5. **Commit**: Stage all changes and commit with a clear message
 
-Example: Updating D4 builds took 3 steps:
-- WebFetch maxroll tier list → identified top 5
-- Write to `data/diablo4-builds.json`
-- Edit dashboard HTML to add Paladin/Spiritborn classes
-- Commit with one git push
+### Diablo 4 Builds
+**Best method: WebFetch → JSON → HTML filters** (Tested & fastest)
+1. WebFetch maxroll.gg tier list (fast, reliable, clean data)
+2. Extract top N builds from fetched content
+3. Write to `data/diablo4-builds.json` with fields: name, class, difficulty, description, focus, main_skill, cost, rating, tags
+4. Update HTML filters (`<select>`) if new classes appear
+5. Commit all changes
+
+Why: WebFetch is ~2x faster than WebSearch, returns exact data, no API limitations
+
+### Chess Champions
+**Best method: Manual curation** (Chess.com API currently unavailable)
+1. Periodically check chess.com/leaderboards or major tournament results
+2. Manually select top 5 current champions
+3. Update `data/chess-champions.json` with fields: name, title, country, blitz_rating, rapid_rating, bullet_rating, max_rating, is_world_champion
+4. Commit with update date
+
+Why: API is broken, WebSearch returns tournament candidates not current rankings. Manual approach gives you editorial control anyway.
+
+**Frequency:** Update D4 builds after patches/seasons, update chess after major tournaments or title changes
 
 ## Color Theme
 - Background: `#0a0e27` (dark navy)
