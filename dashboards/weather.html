@@ -245,6 +245,7 @@
 
         <div id="weatherDisplay" class="weather-display">
             <div class="location-name" id="locationName"></div>
+            <div style="font-size: 48px; margin-bottom: 15px;" id="conditionIcon"></div>
             <div class="temp-section">
                 <span class="current-temp" id="currentTemp"></span>
                 <span class="temp-unit">°F</span>
@@ -343,10 +344,12 @@
         function displayWeather(data, name, state) {
             const current = data.current;
             const daily = data.daily;
+            const weatherDesc = getWeatherDescription(current.weather_code);
 
             document.getElementById('locationName').textContent = `${name}, ${state}`;
             document.getElementById('currentTemp').textContent = Math.round(current.temperature_2m);
-            document.getElementById('condition').textContent = getWeatherDescription(current.weather_code);
+            document.getElementById('conditionIcon').textContent = weatherDesc.icon;
+            document.getElementById('condition').textContent = weatherDesc.text;
             document.getElementById('feelsLike').textContent = Math.round(current.apparent_temperature) + '°';
             document.getElementById('humidity').textContent = current.relative_humidity_2m + '%';
             document.getElementById('wind').textContent = Math.round(current.wind_speed_10m) + ' mph';
@@ -356,8 +359,9 @@
             const forecastGrid = document.getElementById('forecastGrid');
             forecastGrid.innerHTML = '';
 
-            for (let i = 1; i < 6; i++) {
-                const date = new Date(daily.time[i]);
+            for (let i = 1; i < 6 && i < daily.time.length; i++) {
+                const dateStr = daily.time[i];
+                const date = new Date(dateStr + 'T00:00');
                 const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
                 const maxTemp = Math.round(daily.temperature_2m_max[i]);
                 const minTemp = Math.round(daily.temperature_2m_min[i]);
@@ -366,6 +370,7 @@
                 forecastDay.className = 'forecast-day';
                 forecastDay.innerHTML = `
                     <div class="forecast-day-name">${dayName}</div>
+                    <div style="font-size: 24px; margin: 8px 0;">☁️</div>
                     <div class="forecast-temp">${maxTemp}°</div>
                     <div style="font-size: 11px; color: #666; margin-top: 4px;">${minTemp}°</div>
                 `;
@@ -377,32 +382,33 @@
 
         function getWeatherDescription(code) {
             const descriptions = {
-                0: 'Clear',
-                1: 'Mostly Clear',
-                2: 'Partly Cloudy',
-                3: 'Overcast',
-                45: 'Foggy',
-                48: 'Foggy',
-                51: 'Light Drizzle',
-                53: 'Drizzle',
-                55: 'Heavy Drizzle',
-                61: 'Light Rain',
-                63: 'Rain',
-                65: 'Heavy Rain',
-                71: 'Light Snow',
-                73: 'Snow',
-                75: 'Heavy Snow',
-                77: 'Snow Grains',
-                80: 'Light Showers',
-                81: 'Showers',
-                82: 'Heavy Showers',
-                85: 'Light Snow Showers',
-                86: 'Snow Showers',
-                95: 'Thunderstorm',
-                96: 'Thunderstorm with Hail',
-                99: 'Thunderstorm with Hail'
+                0: { icon: '☀️', text: 'Clear' },
+                1: { icon: '🌤️', text: 'Mostly Clear' },
+                2: { icon: '⛅', text: 'Partly Cloudy' },
+                3: { icon: '☁️', text: 'Overcast' },
+                45: { icon: '🌫️', text: 'Foggy' },
+                48: { icon: '🌫️', text: 'Foggy' },
+                51: { icon: '🌧️', text: 'Light Drizzle' },
+                53: { icon: '🌧️', text: 'Drizzle' },
+                55: { icon: '🌧️', text: 'Heavy Drizzle' },
+                61: { icon: '🌧️', text: 'Light Rain' },
+                63: { icon: '🌧️', text: 'Rain' },
+                65: { icon: '⛈️', text: 'Heavy Rain' },
+                71: { icon: '❄️', text: 'Light Snow' },
+                73: { icon: '❄️', text: 'Snow' },
+                75: { icon: '❄️', text: 'Heavy Snow' },
+                77: { icon: '❄️', text: 'Snow Grains' },
+                80: { icon: '🌧️', text: 'Light Showers' },
+                81: { icon: '🌧️', text: 'Showers' },
+                82: { icon: '⛈️', text: 'Heavy Showers' },
+                85: { icon: '❄️', text: 'Light Snow Showers' },
+                86: { icon: '❄️', text: 'Snow Showers' },
+                95: { icon: '⛈️', text: 'Thunderstorm' },
+                96: { icon: '⛈️', text: 'Thunderstorm with Hail' },
+                99: { icon: '⛈️', text: 'Thunderstorm with Hail' }
             };
-            return descriptions[code] || 'Unknown';
+            const result = descriptions[code] || { icon: '❓', text: 'Unknown' };
+            return result;
         }
 
         function showError(msg) {
