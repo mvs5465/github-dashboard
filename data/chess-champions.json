@@ -1,0 +1,31 @@
+{
+  "last_updated": "2026-02-14T00:00:00Z",
+  "champions": [
+    {
+      "username": "gukesh",
+      "name": "Gukesh Dommaraju",
+      "title": "GM",
+      "country": "IN",
+      "is_world_champion": true,
+      "ratings": {
+        "blitz": 2900,
+        "rapid": 2880,
+        "bullet": 2950
+      },
+      "max_rating": 2950
+    },
+    {
+      "username": "magnuscarlsen",
+      "name": "Magnus Carlsen",
+      "title": "GM",
+      "country": "NO",
+      "is_world_champion": false,
+      "ratings": {
+        "blitz": 2869,
+        "rapid": 2832,
+        "bullet": 2900
+      },
+      "max_rating": 2900
+    }
+  ]
+}

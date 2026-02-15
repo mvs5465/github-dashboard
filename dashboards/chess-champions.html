@@ -81,12 +81,139 @@
         </div>
 
         <div class="content">
-            <div class="placeholder-icon">♔</div>
-            <div class="placeholder">
-                <p>Chess Champions Dashboard</p>
-                <p style="margin-top: 10px; font-size: 14px;">Coming soon - Placeholder for current world chess champions data</p>
+            <div id="champions-container" style="display: none;">
+                <div id="champions-list"></div>
+            </div>
+            <div id="loading" style="text-align: center; padding: 40px;">
+                <div style="font-size: 24px; margin-bottom: 10px;">♔</div>
+                <p>Loading champions data...</p>
             </div>
         </div>
+
+        <style>
+            .champions-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+
+            .champions-table thead {
+                background: #f6f8fa;
+                border-bottom: 2px solid #e1e4e8;
+            }
+
+            .champions-table th {
+                padding: 12px;
+                text-align: left;
+                font-weight: 600;
+                color: #24292e;
+            }
+
+            .champions-table td {
+                padding: 12px;
+                border-bottom: 1px solid #e1e4e8;
+            }
+
+            .champions-table tr:hover {
+                background: #f6f8fa;
+            }
+
+            .champion-badge {
+                display: inline-block;
+                background: gold;
+                color: #333;
+                padding: 2px 8px;
+                border-radius: 4px;
+                font-size: 11px;
+                font-weight: 600;
+                margin-left: 8px;
+            }
+
+            .rating {
+                background: #f0f0f0;
+                padding: 4px 8px;
+                border-radius: 4px;
+                font-family: monospace;
+                font-weight: 600;
+            }
+
+            .last-updated {
+                text-align: center;
+                margin-top: 20px;
+                font-size: 12px;
+                color: #999;
+            }
+        </style>
+
+        <script>
+            async function loadChampionsData() {
+                try {
+                    const response = await fetch('../data/chess-champions.json');
+                    if (!response.ok) throw new Error('Failed to load data');
+
+                    const data = await response.json();
+                    renderChampions(data);
+                } catch (error) {
+                    document.getElementById('loading').innerHTML = `<div style="color: #d73a49;">Error loading data: ${error.message}</div>`;
+                }
+            }
+
+            function renderChampions(data) {
+                const champions = data.champions;
+                const lastUpdated = new Date(data.last_updated).toLocaleDateString();
+
+                let html = `
+                    <table class="champions-table">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Player</th>
+                                <th>Title</th>
+                                <th>Country</th>
+                                <th>Blitz Rating</th>
+                                <th>Rapid Rating</th>
+                                <th>Bullet Rating</th>
+                                <th>Max Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                champions.forEach((champion, index) => {
+                    const blitzRating = champion.ratings.blitz || '-';
+                    const rapidRating = champion.ratings.rapid || '-';
+                    const bulletRating = champion.ratings.bullet || '-';
+                    const badge = champion.is_world_champion ? '<span class="champion-badge">World Champ</span>' : '';
+
+                    html += `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>
+                                <strong>${champion.name}</strong>${badge}
+                            </td>
+                            <td>${champion.title || '-'}</td>
+                            <td>${champion.country || '-'}</td>
+                            <td><span class="rating">${blitzRating}</span></td>
+                            <td><span class="rating">${rapidRating}</span></td>
+                            <td><span class="rating">${bulletRating}</span></td>
+                            <td><span class="rating" style="background: #667eea; color: white; font-weight: bold;">${champion.max_rating}</span></td>
+                        </tr>
+                    `;
+                });
+
+                html += `
+                        </tbody>
+                    </table>
+                    <div class="last-updated">Last updated: ${lastUpdated}</div>
+                `;
+
+                document.getElementById('champions-list').innerHTML = html;
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('champions-container').style.display = 'block';
+            }
+
+            loadChampionsData();
+        </script>
     </div>
 </body>
 </html>
