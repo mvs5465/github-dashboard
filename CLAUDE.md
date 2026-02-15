@@ -1,7 +1,11 @@
 # GitHub Dashboard - Project Guide
 
 ## Project Overview
-A multi-dashboard site hosted on GitHub Pages. Currently features a chess champions dashboard with daily auto-updates from Chess.com API.
+Multi-dashboard site hosted on GitHub Pages. Features:
+- Chess champions dashboard with daily auto-updates (Chess.com API)
+- Diablo 4 builds dashboard with class/difficulty filtering
+- Weather dashboard with zip code lookup (Open-Meteo API)
+- Dashboard hub with card navigation
 
 ## Tracking & Status
 Check the README.md for project status and feature progress. Update the status table as work completes.
@@ -10,22 +14,26 @@ Check the README.md for project status and feature progress. Update the status t
 ```
 ├── index.html                          # Main hub page
 ├── dashboards/
-│   └── chess-champions.html           # Chess dashboard
+│   ├── chess-champions.html           # Chess dashboard
+│   ├── diablo4-builds.html            # D4 builds dashboard
+│   └── weather.html                   # Weather dashboard
 ├── data/
-│   └── chess-champions.json           # Chess data (auto-updated daily)
+│   ├── chess-champions.json           # Chess data (auto-updated daily)
+│   └── diablo4-builds.json            # D4 builds (manual updates)
 ├── .github/
 │   ├── workflows/
-│   │   └── update-chess-data.yml      # Daily chess data fetch
+│   │   └── update-chess-data.yml      # Daily chess data + validation
 │   └── scripts/
-│       └── fetch_chess_data.py        # Chess.com API script
+│       ├── fetch_chess_data.py        # Chess.com API script
+│       └── validate.py                # Data & HTML validation
 └── README.md                           # Project status & docs
 ```
 
 ## Tech Stack
 - Static HTML/CSS/JavaScript
-- GitHub Pages (branch deployment from main)
-- Chess.com API (free, no auth required)
-- GitHub Actions (daily scheduler)
+- GitHub Pages (auto-deploy on main push)
+- APIs: Chess.com, Open-Meteo (weather), Zippopotam.us (zip codes)
+- GitHub Actions (daily chess update + validation)
 
 ## Adding New Dashboards
 1. Create new HTML file in `dashboards/`
