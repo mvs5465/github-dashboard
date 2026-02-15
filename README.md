@@ -14,11 +14,12 @@ A simple, elegant dashboard to display your GitHub profile and activity.
 | Status | Feature |
 |--------|---------|
 | ✅ | Chess champions dashboard with live ratings |
-| ✅ | Daily auto-update workflow (GitHub Actions) |
+| ✅ | Daily auto-update workflow + validation checks |
+| ✅ | Diablo 4 builds dashboard with filtering |
+| ✅ | Weather dashboard (zip code lookup) |
 | ✅ | Dark theme with green accents |
-| ⏳ | Diablo 4 builds dashboard |
-| ⏳ | Add more dashboard cards to hub |
-| ⏳ | Enhance chess dashboard UI/UX |
+| ✅ | Dashboard hub with card navigation |
+| ✅ | Auto-merge PRs when data changes |
 
 ## Built with
 
