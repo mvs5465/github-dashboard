@@ -87,6 +87,7 @@
         <div class="content">
             <div id="champions-container" style="display: none;">
                 <div id="champions-list"></div>
+                <div id="lastUpdated" style="font-size: 11px; color: #666; text-align: center; margin-top: 20px; padding-top: 15px; border-top: 1px solid #00d08415;"></div>
             </div>
             <div id="loading" style="text-align: center; padding: 40px;">
                 <div style="font-size: 24px; margin-bottom: 10px;">♔</div>
@@ -211,12 +212,26 @@
                 html += `
                         </tbody>
                     </table>
-                    <div class="last-updated">Last updated: ${lastUpdated}</div>
                 `;
 
                 document.getElementById('champions-list').innerHTML = html;
+                updateTimestamp();
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('champions-container').style.display = 'block';
+            }
+
+            function updateTimestamp() {
+                const now = new Date();
+                const timeStr = now.toLocaleTimeString('en-US', {
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true
+                });
+                const dateStr = now.toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric'
+                });
+                document.getElementById('lastUpdated').textContent = `Last updated: ${timeStr} on ${dateStr}`;
             }
 
             loadChampionsData();

@@ -300,7 +300,7 @@
                 const data = await response.json();
                 allBuilds = data.builds;
                 renderBuilds(allBuilds);
-                document.getElementById('last-updated').textContent = `Last updated: ${new Date(data.last_updated).toLocaleDateString()}`;
+                updateTimestamp();
             } catch (error) {
                 document.getElementById('loading').innerHTML = `<div style="color: #d73a49;">Error loading data: ${error.message}</div>`;
             }
@@ -368,6 +368,20 @@
             });
 
             renderBuilds(filtered);
+        }
+
+        function updateTimestamp() {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('en-US', {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            });
+            const dateStr = now.toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric'
+            });
+            document.getElementById('last-updated').textContent = `Last updated: ${timeStr} on ${dateStr}`;
         }
 
         document.getElementById('classFilter').addEventListener('change', filterBuilds);

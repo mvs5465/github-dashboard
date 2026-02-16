@@ -11,8 +11,9 @@ A collection of simple, elegant dashboards for different data sources.
 | ✅ | Chess champions dashboard with live ratings |
 | ✅ | Daily auto-update workflow + validation checks |
 | ✅ | Diablo 4 builds dashboard with filtering |
-| ✅ | Weather dashboard (zip code lookup) |
+| ✅ | Weather dashboard with hourly forecast |
 | ✅ | Stock market dashboard (noob-friendly overview) |
+| ✅ | SpaceX launches dashboard with countdown timers |
 | ✅ | Dark theme with green accents |
 | ✅ | Dashboard hub with card navigation |
 | ✅ | Auto-merge PRs when data changes |
