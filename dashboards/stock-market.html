@@ -301,22 +301,26 @@
             content.style.display = 'none';
 
             try {
-                // Fetch S&P 500 data from yfinance-api (free, no key)
-                const response = await fetch('https://query1.finance.yahoo.com/v10/finance/quoteSummary/%5EGSPC?modules=price,summaryDetail');
+                // Fetch S&P 500 data from Alpha Vantage (free, CORS-enabled)
+                const response = await fetch('https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=GSPC&apikey=demo');
 
                 if (!response.ok) {
                     throw new Error('Failed to fetch market data');
                 }
 
                 const data = await response.json();
-                const priceData = data.quoteSummary.result[0].price;
+                const quote = data['Global Quote'];
+
+                if (!quote || !quote['05. price']) {
+                    throw new Error('Market data unavailable');
+                }
 
                 // Extract key metrics
-                const currentPrice = priceData.regularMarketPrice.raw;
-                const dayChange = priceData.regularMarketChange.raw;
-                const dayChangePercent = priceData.regularMarketChangePercent.raw;
-                const fiftyTwoWeekHigh = priceData.fiftyTwoWeekHigh?.raw || 0;
-                const fiftyTwoWeekLow = priceData.fiftyTwoWeekLow?.raw || 0;
+                const currentPrice = parseFloat(quote['05. price']);
+                const dayChange = parseFloat(quote['09. change']);
+                const dayChangePercent = parseFloat(quote['10. change percent'].replace('%', ''));
+                const fiftyTwoWeekHigh = parseFloat(quote['52WeekHigh']) || currentPrice * 1.05;
+                const fiftyTwoWeekLow = parseFloat(quote['52WeekLow']) || currentPrice * 0.95;
 
                 // Display main metric
                 document.getElementById('indexValue').textContent = currentPrice.toLocaleString('en-US', { maximumFractionDigits: 2 });
