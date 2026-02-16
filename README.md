@@ -1,13 +1,8 @@
 # GitHub Dashboard
 
-A simple, elegant dashboard to display your GitHub profile and activity.
+🔗 **Live Site**: https://matthewschwartz.github.io/github-dashboard/
 
-## Features
-
-- Profile stats (repos, followers, following)
-- Popular repositories overview
-- Recent activity feed
-- Responsive design
+A collection of simple, elegant dashboards for different data sources.
 
 ## Project Status
 
@@ -17,6 +12,7 @@ A simple, elegant dashboard to display your GitHub profile and activity.
 | ✅ | Daily auto-update workflow + validation checks |
 | ✅ | Diablo 4 builds dashboard with filtering |
 | ✅ | Weather dashboard (zip code lookup) |
+| ✅ | Stock market dashboard (noob-friendly overview) |
 | ✅ | Dark theme with green accents |
 | ✅ | Dashboard hub with card navigation |
 | ✅ | Auto-merge PRs when data changes |
