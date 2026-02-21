@@ -1,8 +1,8 @@
 name: Update Chess Champions Data
 
 on:
-  schedule:
-    - cron: '0 12 * * *'  # Daily at 12 PM UTC
+  # schedule:
+  #   - cron: '0 12 * * *'  # Daily at 12 PM UTC
   workflow_dispatch:      # Allow manual trigger
 
 permissions:
